@@ -74,3 +74,15 @@ int proc_read(process* proc, char* buf, int len) {
     }
     return bytes_read;
 }
+
+int proc_readline(process* proc, char* buf) {
+    char rbuf[1] = {'\0'};
+    int position = 0;
+    while (rbuf[0] != '\n') {
+        proc_read(proc, rbuf, 1);
+        buf[position] = rbuf[0];
+        position++;
+    }
+    buf[position] = '\0';
+    return position;
+}

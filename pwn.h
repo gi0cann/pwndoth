@@ -12,7 +12,7 @@ typedef struct {
     int ret;
 } process;
 
-process* new_process(char* path, char* argv[]) {
+process* new_process(char* path, char* argv[], char* envp[]) {
     process* proc = (process*) malloc(sizeof(process));
     memset(proc, 0, sizeof(process));
     proc->name = path;
@@ -40,7 +40,7 @@ process* new_process(char* path, char* argv[]) {
             exit(EXIT_FAILURE);
         }
         */
-        int ret = execve(path, argv, NULL);
+        int ret = execve(path, argv, envp);
         if (ret < 0) {
             perror("Failed to start process");
             exit(EXIT_FAILURE);
